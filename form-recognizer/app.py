@@ -52,12 +52,16 @@ def main():
             # st.write(page_text[:4000])
 
             res = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4",
                 temperature=0,
                 messages=[
                     {
                         "role": "system",
-                        "content": "ノートの内容を与えるので、そこから４択問題を作成してください。対象者は日本人の中学生です。日本語で問題を作成してください。"
+                        "content": """ノートの内容を与えるので、そこから４択問題を作成してください。対象者は日本人の中学生です。日本語で問題を作成してください。
+                        以下の制約を守ってください。
+                        1. 正解があること
+                        2. 問題文から答えが推測されないこと
+                        """
                     },
                     {
                         "role": "user",
