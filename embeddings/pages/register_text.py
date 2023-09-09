@@ -20,10 +20,10 @@ def embed_text_with_openai(api_key, text, groupName="default"):
 
     return response.json()
 
-st.title('Langcore Embeddings Demo')
+st.title('Langcore Embeddings Register')
 
 # APIキーの入力
-api_key = st.text_input("Enter your Langcore API Key:", type="password")
+api_key = st.text_input("Enter your OpenAI API Key:", type="password")
 
 # グループ名の入力 (オプショナル)
 group_name = st.text_input("Enter a group name:")
@@ -32,12 +32,13 @@ group_name = st.text_input("Enter a group name:")
 text_input = st.text_area("Enter multiple lines of text:", height=200)
 
 # ボタンを押したらEmbeddings処理を行う
-if st.button("Get Embeddings"):
+if st.button("Register Embeddings"):
     if api_key and text_input:
         lines = text_input.split('\n')
         embedded_lines = []
 
         with st.spinner("Embedding lines..."):
+            progress_bar = st.progress(0)
             for index, line in enumerate(lines, 1):
                 # Embeddingの処理
                 embedded_line = embed_text_with_openai(api_key, line, group_name)
@@ -45,7 +46,7 @@ if st.button("Get Embeddings"):
                     embedded_lines.append(embedded_line)
 
                 # 進行度の表示
-                st.progress(index / len(lines))
+                progress_bar.progress(index / len(lines))
 
         st.write("Embeddings completed!")
     else:
