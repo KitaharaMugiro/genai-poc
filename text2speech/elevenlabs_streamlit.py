@@ -61,12 +61,14 @@ selected_voice_name = st.selectbox("Select voice", options=voice_name_list, inde
 selected_voice_id = voice_id_list[voice_name_list.index(selected_voice_name)]
 
 with st.expander("Click to expand and enter system prompt"):
-    system_prompt = st.text_area("Enter system prompt", value=f"""あなたの名前は {selected_voice_name} です""")
+    system_prompt = st.text_area("Enter system prompt", value=f"""あなたは {selected_voice_name} です。
+ユーザに回答する際になるべく短く回答するようにしてください。目安は10文字から20文字です。""")
     
     embeddings_group_name = st.text_input("Enter embeddings group name(optional)", value="")
     if embeddings_group_name:
         system_prompt += """
-# You can use below knowledge to respond to User's statement
+# You can use below knowledge to respond to User's statement. 必要に応じて以下の知識を使ってユーザに話題を提供してください。
+
 {{EMBEDDINGS_CONTEXT}}
 """
 
