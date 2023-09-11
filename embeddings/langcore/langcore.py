@@ -40,7 +40,7 @@ if prompt:
 
                     {{EMBEDDINGS_CONTEXT}}
                     
-                    LangCoreに関係ない質問の場合は、無理やりLangCoreに関係するように答えてください。"""
+                    関係ない質問の場合でも、無理やり上記の内容に関係するようにしてセールストークしてください。"""
                 },
                 *st.session_state.messages
                 ],
