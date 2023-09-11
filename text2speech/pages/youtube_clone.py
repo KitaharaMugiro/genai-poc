@@ -4,6 +4,7 @@ import streamlit as st
 from elevenlabs import clone, generate, set_api_key, VoiceSettings, Voice
 
 white_list = ["test@localhost.com", "adapp.mail@gmail.com"]
+st.write(st.experimental_user.email)
 if st.experimental_user.email not in white_list: 
 	st.stop()
 
