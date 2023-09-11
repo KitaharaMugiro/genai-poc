@@ -61,6 +61,10 @@ if st.button("Register Embeddings"):
         # テキスト部分だけ抽出
         lines = [line.page_content for line in lines if line.page_content]
 
+        # 30文字以上の行だけ抽出
+        lines = [line for line in lines if len(line) > 30]
+
+
         embedded_lines = []
         with st.spinner("Embedding lines..."):
             progress_bar = st.progress(0)
