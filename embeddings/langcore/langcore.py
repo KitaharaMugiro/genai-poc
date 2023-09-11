@@ -24,7 +24,7 @@ if prompt:
         full_response = ""
         for response in openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
-            query=prompt + " LangCore",
+            query=prompt ,
             groupName = "DEMO",
             headers = {
                 "Content-Type": "application/json",
