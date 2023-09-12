@@ -20,6 +20,7 @@ def save_audio(url):
 		raise ValueError("No audio stream found for this video")
 
 	out_file = video.download()
+
 	# out_fileのディレクトリを取得
 	directory = os.path.dirname(out_file)
 

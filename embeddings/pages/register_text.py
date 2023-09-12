@@ -31,20 +31,21 @@ group_name = st.text_input("Enter a group name:")
 # 複数行のテキストの入力
 text_input = st.text_area("Enter multiple lines of text:", height=200)
 
+def split_string_into_chunks(s, chunk_size=100):
+    return [s[i:i+chunk_size] for i in range(0, len(s), chunk_size)]
+
 # ボタンを押したらEmbeddings処理を行う
 if st.button("Register Embeddings"):
     if api_key and text_input:
-        lines = text_input.split('\n')
-        embedded_lines = []
+        lines = []
+        # 100文字の塊を作る
+        lines = split_string_into_chunks(text_input)
 
         with st.spinner("Embedding lines..."):
             progress_bar = st.progress(0)
             for index, line in enumerate(lines, 1):
                 # Embeddingの処理
-                embedded_line = embed_text_with_openai(api_key, line, group_name)
-                if embedded_line is not None:
-                    embedded_lines.append(embedded_line)
-
+                embed_text_with_openai(api_key, line, group_name)
                 # 進行度の表示
                 progress_bar.progress(index / len(lines))
 

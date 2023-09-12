@@ -35,8 +35,9 @@ csv_file = st.file_uploader("Upload a csv file", type="csv")
 if st.button("Register Embeddings"):
     if api_key and csv_file:
         lines = csv_file.read().decode('utf-8').split('\n')
-        embedded_lines = []
+        st.write(f"Embedding {len(lines)} lines...")
 
+        embedded_lines = []
         with st.spinner("Embedding lines..."):
             progress_bar = st.progress(0)
             for index, line in enumerate(lines, 1):
@@ -44,7 +45,7 @@ if st.button("Register Embeddings"):
                 embedded_line = embed_text_with_openai(api_key, line, group_name)
                 if embedded_line is not None:
                     embedded_lines.append(embedded_line)
-
+            
                 # 進行度の表示
                 progress_bar.progress(index / len(lines))
 
