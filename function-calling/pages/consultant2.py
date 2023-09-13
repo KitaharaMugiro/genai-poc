@@ -4,14 +4,9 @@ import json
 
 openai.api_base = "https://oai.langcore.org/v1"
 
-def write_spreadsheet(question:str, answer:str, insight:str):
+def write_spreadsheet(res: dict):
     st.success("以下の情報をスプレッドシートに保存します")
-    st.json({
-        "userId": "test-user-id",
-        "question": question,
-        "answer": answer,
-        "insight": insight
-    })
+    st.json(res)
 
 def function_calling(messages, functions, function_name):
     function_call = "auto"
@@ -98,6 +93,11 @@ if prompt:
         st.markdown(prompt)
 
     with st.chat_message("assistant"):
+        if st.session_state.attempts > 2:
+            system_prompt_structure = {
+                "role": "system",
+                "content": "コーチングが終了したので、お礼を言って会話を終了させてください"
+            }
         message_placeholder = st.empty()
         full_response = ""
         for response in openai.ChatCompletion.create(
@@ -114,5 +114,7 @@ if prompt:
     st.session_state.attempts += 1
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     if st.session_state.attempts > 3: 
-        res, is_end = function_calling([ system_prompt_structure, *st.session_state.messages], functions(question), "end_question")
-        write_spreadsheet(question, res["answer"], res["insight"])
+        with st.spinner("スプレッドシートへの書き込み中"): 
+            res, is_end = function_calling([ system_prompt_structure, *st.session_state.messages], functions(question), "end_question")
+            res["question"] = question
+            write_spreadsheet(res)
