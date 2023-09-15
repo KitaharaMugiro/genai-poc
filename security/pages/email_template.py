@@ -21,7 +21,7 @@ def revert_email_in_text(text, original_email):
         text = text.replace("temp@test.com", original_email)
     return text
 
-st.title("メールアドレス差し替えアプリ")
+st.title("メールアドレス差し替え")
 st.write("個人情報であるメールアドレスをOpenAIに送る前にマスクし、メール文章生成時にアンマスクする")
 
 # ユーザからの入力
