@@ -9,8 +9,8 @@ import openai
 
 openai.api_base = "https://oai.langcore.org/v1"
 
-st.set_page_config(page_title="LangChain: Chat with search", page_icon="🦜")
-st.title("🦜 LangChain: Chat with search")
+st.set_page_config(page_title="LangCore: Chat with search", page_icon="🔍")
+st.title("LangCore: Chat with search")
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
@@ -20,7 +20,7 @@ memory = ConversationBufferMemory(
 )
 if len(msgs.messages) == 0 or st.sidebar.button("Reset chat history"):
     msgs.clear()
-    msgs.add_ai_message("How can I help you?")
+    msgs.add_ai_message("どのようなことをお探しですか？")
     st.session_state.steps = {}
 
 avatars = {"human": "user", "ai": "assistant"}
@@ -35,12 +35,8 @@ for idx, msg in enumerate(msgs.messages):
                 st.write(step[1])
         st.write(msg.content)
 
-if prompt := st.chat_input(placeholder="Who won the Women's U.S. Open in 2018?"):
+if prompt := st.chat_input(placeholder="東京の現在の天気は？"):
     st.chat_message("user").write(prompt)
-
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
 
     llm = ChatOpenAI(
         model_name="gpt-3.5-turbo", 
