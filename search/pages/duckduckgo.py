@@ -12,7 +12,7 @@ openai.api_base = "https://oai.langcore.org/v1"
 st.set_page_config(page_title="LangChain: Chat with search", page_icon="🦜")
 st.title("🦜 LangChain: Chat with search")
 
-openai_api_key = st.sidebar.text_input("OpenAI API Key", type="password")
+openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 msgs = StreamlitChatMessageHistory()
 memory = ConversationBufferMemory(
