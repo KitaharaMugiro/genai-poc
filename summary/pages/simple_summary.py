@@ -57,7 +57,7 @@ def main():
     if st.button('要約する'):
         with st.spinner('要約作成中...'):
             summarized_text, prompt = summarize(url)
-        st.text_area("作成された要約", summarized_text, height=300)
+        st.text_area("作成された要約", summarized_text + "\n" + url, height=300)
 
         expander = st.expander("実行したプロンプト", expanded=False)
         with expander:
