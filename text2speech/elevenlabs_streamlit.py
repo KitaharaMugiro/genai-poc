@@ -56,7 +56,7 @@ else :
 voice_list = voices()
 voice_id_list = [voice.voice_id for voice in voice_list]
 voice_name_list = [voice.name for voice in voice_list]
-marin_index = voice_name_list.index("marin")
+marin_index = voice_name_list.index("Kitahara")
 selected_voice_name = st.selectbox("Select voice", options=voice_name_list, index=marin_index)
 selected_voice_id = voice_id_list[voice_name_list.index(selected_voice_name)]
 st.write(selected_voice_id)
