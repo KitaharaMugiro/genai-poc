@@ -10,6 +10,15 @@ group_name = st.text_input("Enter a group name:")
 openai.api_base = "https://oai.langcore.org/v1"
 openai.api_key = api_key
 
+with st.expander("Click to expand and enter system prompt"):
+    system_prompt = st.text_area("Enter system prompt", value="""ユーザの質問に対して、以下の情報を使って答えてください。
+
+{{EMBEDDINGS_CONTEXT}}""")
+    
+    match_threshold = st.text_input("Embeddings-Match-Threshhold", value="0.5")
+    match_count = st.text_input("Embeddings-Match-Count", value="3")
+
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -34,17 +43,13 @@ if prompt:
             headers = {
                 "Content-Type": "application/json",
                 "LangCore-Embeddings": "on",
-                "LangCore-Embeddings-Match-Threshold": "0",
-                "LangCore-Embeddings-Match-Count": "3",
+                "LangCore-Embeddings-Match-Threshold": match_threshold,
+                "LangCore-Embeddings-Match-Count": match_count,
             },
             messages= [
                 {
                     "role": "system",
-                    "content": """
-                    ユーザの質問に対して、以下の情報を使って答えてください。
-
-                    {{EMBEDDINGS_CONTEXT}}
-                    """
+                    "content": system_prompt
                 },
                 *st.session_state.messages
                 ],
