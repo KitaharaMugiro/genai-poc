@@ -4,6 +4,8 @@ import json
 
 # TODO: ログイン機能
 
+# gpt-3.5-turboかgpt4かを選択
+is_gpt4 = st.checkbox("Use gpt-4", value=False)
 
 ## tuning points ##
 system_prompt = """あなたはプロのレストラン検索家です。ユーザの希望に近いお店が「検索結果」に表示されているので、それを元にユーザにおすすめのお店を教えてください。
@@ -50,7 +52,7 @@ def function_calling(messages, functions, function_name):
     if function_name: 
         function_call = {"name": function_name}
     response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=is_gpt4 and "gpt4" or "gpt-3.5-turbo",
             messages=messages,
             functions=functions,
             function_call=function_call
@@ -89,7 +91,7 @@ if prompt:
         message_placeholder = st.empty()
         full_response = ""
         for response in openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model=is_gpt4 and "gpt4" or "gpt-3.5-turbo",
             query=args["query"] ,
             groupName = group_name,
             headers = {
