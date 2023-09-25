@@ -9,7 +9,7 @@ cognitive_service_key = os.environ.get("COGNITIVE_SERVICE_KEY")
 openai.api_base = "https://oai.langcore.org/v1"
 def main():
     st.title('問題自動作成')
-    file_path = st.file_uploader("スライドテンプレートファイル(pptx)をアップロード", type=["png"])
+    file_path = st.file_uploader("画像ファイル(png)をアップロード", type=["png"])
     if file_path is not None:
         st.image(file_path)
         st.write(file_path)
