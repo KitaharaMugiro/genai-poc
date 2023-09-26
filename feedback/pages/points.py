@@ -84,8 +84,14 @@ def main():
 
 
     if st.session_state["result"]:
-        feedback = streamlit_feedback(feedback_type="thumbs", optional_text_label="フィードバックをお願いします")
-        if feedback:
+        score = st.number_input("点数をつけてください", min_value=0, max_value=100, step=1)
+        feedback = {
+            "type": "points",
+            "score": score,
+            "text": ""
+        }
+        submit_button = st.button("フィードバックを送信する")
+        if submit_button:
             on_submit(feedback, request_body=st.session_state["request_body"] , response_body=st.session_state["response_body"] , openai_api_key=openai_api_key)
 
 if __name__ == "__main__":

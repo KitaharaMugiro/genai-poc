@@ -14,6 +14,18 @@ def on_submit(feedback, request_body, response_body, openai_api_key):
         score = 1
     elif score == "👎":
         score = 0
+    
+    if score == "😞":
+        score = 0
+    elif score == "🙁":
+        score = 1
+    elif score == "😐":
+        score = 2
+    elif score == "🙂":
+        score = 3
+    elif score == "😀":
+        score = 4
+    
 
     optional_text_label = feedback["text"]
 
@@ -84,7 +96,7 @@ def main():
 
 
     if st.session_state["result"]:
-        feedback = streamlit_feedback(feedback_type="thumbs", optional_text_label="フィードバックをお願いします")
+        feedback = streamlit_feedback(feedback_type="faces", optional_text_label="フィードバックをお願いします")
         if feedback:
             on_submit(feedback, request_body=st.session_state["request_body"] , response_body=st.session_state["response_body"] , openai_api_key=openai_api_key)
 
