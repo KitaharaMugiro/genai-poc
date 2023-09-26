@@ -45,9 +45,11 @@ def on_submit(feedback, request_body, response_body, openai_api_key):
 
 def set_userInput(userInput: str):
     st.session_state["userInput"] = userInput
+    st.session_state["result"] = None
 
 def main():
-    st.title("アイディア生成AI")
+    st.title("キャッチコピー生成AI")
+    st.write("お題からキャッチコピーを生成します。")
     if "userInput" not in st.session_state:
         st.session_state["userInput"] = None
     if "result" not in st.session_state:
@@ -55,13 +57,17 @@ def main():
 
     # User input
     openai_api_key = st.text_input("OpenAI API Key", type="password")
-    input_text = st.text_input("アイディアのタイトルを入力してください。")
+    input_text = st.text_input("お題を入力してください。")
+
+    if not openai_api_key:
+        st.warning("OpenAI API Keyを入力してください。")
+        return
 
     openai.api_key = openai_api_key
     result = None
     request_body = None
     response_body = None
-    st.button("アイディア生成", on_click=set_userInput, args=[input_text])
+    st.button("キャッチコピー生成", on_click=set_userInput, args=[input_text])
     if st.session_state["userInput"] != None and st.session_state["result"] == None:
         with st.spinner("AIが考え中..."):
             request_body = {
@@ -70,7 +76,7 @@ def main():
                     {
                         "role": "system",
                         "content": """#お願い
-あなたは一流の企画担当です。独創的で、まだ誰も思いついていないような、新しいサービスのアイデアのタイトルを1つ出してください。"""
+あなたは一流の企画担当です。独創的で、まだ誰も思いついていないような、新しいキャッチコピーを1つ出してください。"""
                     },
                     {
                         "role": "user",
