@@ -9,12 +9,7 @@ openai.api_base = "https://oai.langcore.org/v1"
 
 def on_submit(feedback, request_body, response_body, openai_api_key):
     feedback_type = feedback["type"]
-    score = feedback["score"]
-    if score == "👍":
-        score = 1
-    elif score == "👎":
-        score = 0
-    
+    score = feedback["score"]    
     if score == "😞":
         score = 0
     elif score == "🙁":

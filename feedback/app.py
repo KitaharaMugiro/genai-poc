@@ -6,7 +6,6 @@ import json
 from streamlit_feedback import streamlit_feedback
 
 openai.api_base = "https://oai.langcore.org/v1"
-
 def on_submit(feedback, request_body, response_body, openai_api_key):
     feedback_type = feedback["type"]
     score = feedback["score"]
