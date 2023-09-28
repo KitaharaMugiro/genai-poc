@@ -163,7 +163,7 @@ def on_submit(feedback, request_body, response_body, openai_api_key):
         "optional_text_label": optional_text_label
     }
     requests.post(url, headers=headers, data=json.dumps(data))
-    st.toast("フィードバックを送信しました。")
+    # st.toast("フィードバックを送信しました。")　バージョン違いでなぜか表示されない
     # URLを表示する
     st.write("フィードバックはこちらに記録されます: https://langcore.org/feedback")
 
