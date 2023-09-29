@@ -1,10 +1,8 @@
 import openai
 import streamlit as st
-import os
 
 # この行を追加することでLangCoreでログを残すことができます
 openai.api_base = "https://oai.langcore.org/v1"
-
 
 def main():
     st.title("ChatGPT キャッチコピー作成アプリ")
