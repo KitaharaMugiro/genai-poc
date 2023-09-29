@@ -5,7 +5,7 @@ import streamlit as st
 openai.api_base = "https://oai.langcore.org/v1"
 
 def main():
-    st.title("ChatGPT キャッチコピー作成アプリ")
+    st.title("キャッチャーくん")
     user_input = st.text_input("キャッチコピーを作成するためのキーワードを入力してください: ")
     if st.button("キャッチコピーを生成"):
         catchphrase = call_chatgpt_api(user_input)
