@@ -1,16 +1,11 @@
 import streamlit as st
 import requests
 
+
 def embed_text_with_openai(api_key, text, groupName="default"):
     url = "http://langcore.org/api/embeddings"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "input": text,
-        "groupName": groupName
-    }
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    data = {"input": text, "groupName": groupName}
 
     response = requests.post(url, json=data, headers=headers)
 
@@ -20,8 +15,9 @@ def embed_text_with_openai(api_key, text, groupName="default"):
 
     return response.json()
 
-st.title('Langcore Embeddings Register')
-st.title('テキストを100文字のチャンクで区切ってベクトルDBに追加します')
+
+st.title("Langcore テキスト登録画面")
+st.title("テキストを100文字のチャンクで区切ってベクトルDBに追加します")
 
 # APIキーの入力
 api_key = st.text_input("Enter your OpenAI API Key:", type="password")
@@ -32,8 +28,10 @@ group_name = st.text_input("Enter a group name:")
 # 複数行のテキストの入力
 text_input = st.text_area("Enter multiple lines of text:", height=200)
 
+
 def split_string_into_chunks(s, chunk_size=100):
-    return [s[i:i+chunk_size] for i in range(0, len(s), chunk_size)]
+    return [s[i : i + chunk_size] for i in range(0, len(s), chunk_size)]
+
 
 # ボタンを押したらEmbeddings処理を行う
 if st.button("Register Embeddings"):

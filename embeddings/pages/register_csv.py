@@ -1,16 +1,11 @@
 import streamlit as st
 import requests
 
+
 def embed_text_with_openai(api_key, text, groupName="default"):
     url = "http://langcore.org/api/embeddings"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "input": text,
-        "groupName": groupName
-    }
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    data = {"input": text, "groupName": groupName}
 
     response = requests.post(url, json=data, headers=headers)
 
@@ -20,7 +15,8 @@ def embed_text_with_openai(api_key, text, groupName="default"):
 
     return response.json()
 
-st.title('Langcore Embeddings Register')
+
+st.title("Langcore CSV登録画面")
 
 # APIキーの入力
 api_key = st.text_input("Enter your OpenAI API Key:", type="password")
@@ -34,7 +30,7 @@ csv_file = st.file_uploader("Upload a csv file", type="csv")
 # ボタンを押したらEmbeddings処理を行う
 if st.button("Register Embeddings"):
     if api_key and csv_file:
-        lines = csv_file.read().decode('utf-8').split('\n')
+        lines = csv_file.read().decode("utf-8").split("\n")
         st.write(f"Embedding {len(lines)} lines...")
 
         embedded_lines = []
@@ -45,7 +41,7 @@ if st.button("Register Embeddings"):
                 embedded_line = embed_text_with_openai(api_key, line, group_name)
                 if embedded_line is not None:
                     embedded_lines.append(embedded_line)
-            
+
                 # 進行度の表示
                 progress_bar.progress(index / len(lines))
 

@@ -1,17 +1,11 @@
 import streamlit as st
 import requests
 
-def embed_text_with_openai(api_key, text, metadata_input,  groupName="default"):
+
+def embed_text_with_openai(api_key, text, metadata_input, groupName="default"):
     url = "http://langcore.org/api/embeddings"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "input": text,
-        "groupName": groupName,
-        "metadata": metadata_input
-    }
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    data = {"input": text, "groupName": groupName, "metadata": metadata_input}
 
     response = requests.post(url, json=data, headers=headers)
 
@@ -21,7 +15,8 @@ def embed_text_with_openai(api_key, text, metadata_input,  groupName="default"):
 
     return response.json()
 
-st.title('Langcore Embeddings Register')
+
+st.title("Langcore テキスト登録画面(メタデータ付き)")
 st.text("メタデータ付きでベクトルDBに追加します")
 
 # APIキーの入力
@@ -34,14 +29,16 @@ group_name = st.text_input("Enter a group name:")
 text_input = st.text_input("Enter a text")
 metadata_input = st.text_input("Enter metadata")
 
-def split_string_into_chunks(text) : 
+
+def split_string_into_chunks(text):
     return text.split("\n")
+
 
 # ボタンを押したらEmbeddings処理を行う
 if st.button("Register Embeddings"):
     if api_key and text_input and metadata_input:
         with st.spinner("Embedding..."):
-            embed_text_with_openai(api_key, text_input, metadata_input , group_name)
+            embed_text_with_openai(api_key, text_input, metadata_input, group_name)
 
         st.write("Embeddings completed!")
     else:
