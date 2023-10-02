@@ -3,13 +3,34 @@ import streamlit as st
 
 with st.echo(code_location="below"):
     st.title("Azureでの利用方法")
-
     openai.api_base = "https://oai.langcore.org/v1"
     openai.api_type = "azure"
-    openai.api_key = st.secrets["AZURE_OPENAI_API_KEY"]
-    openai.api_version = st.secrets["AZURE_OPENAI_API_VERSION"]
-    deployment_id = st.secrets["AZURE_DEPLOYMENT_ID"]
-    host = st.secrets["AZURE_OPENAI_API_HOST"]
+    if "AZURE_OPENAI_API_KEY" not in st.secrets:
+        openai.api_key = st.text_input("AzureのOpenAI APIキーを入力してください", type="password")
+    else:
+        openai.api_key = st.secrets["AZURE_OPENAI_API_KEY"]
+
+    if "AZURE_OPENAI_API_VERSION" not in st.secrets:
+        openai.api_version = st.text_input(
+            "AzureのOpenAI APIバージョンを入力してください", placeholder="2023-07-01"
+        )
+    else:
+        openai.api_version = st.secrets["AZURE_OPENAI_API_VERSION"]
+
+    if "AZURE_DEPLOYMENT_ID" not in st.secrets:
+        deployment_id = st.text_input(
+            "AzureのデプロイメントIDを入力してください", placeholder="your-deployment-id"
+        )
+    else:
+        deployment_id = st.secrets["AZURE_DEPLOYMENT_ID"]
+
+    if "AZURE_OPENAI_API_HOST" not in st.secrets:
+        host = st.text_input(
+            "AzureのOpenAI APIホストを入力してください",
+            placeholder="https://xxxxxxx.openai.azure.com",
+        )
+    else:
+        host = st.secrets["AZURE_OPENAI_API_HOST"]
 
     button = st.button("キャッチコピー生成")
     if button:
