@@ -32,8 +32,7 @@ with st.echo(code_location="below"):
     else:
         host = st.secrets["AZURE_OPENAI_API_HOST"]
 
-    button = st.button("キャッチコピー生成")
-    if button:
+    if st.button("キャッチコピー生成"):
         with st.spinner("AIが考え中..."):
             request_body = {
                 "deployment_id": deployment_id,
@@ -41,11 +40,6 @@ with st.echo(code_location="below"):
                     "LangCore-OpenAI-Api-Base": host,
                 },
                 "messages": [
-                    {
-                        "role": "system",
-                        "content": """#お願い
-    あなたは一流の企画担当です。独創的で、まだ誰も思いついていないような、新しいキャッチコピーを1つ出してください。""",
-                    },
                     {"role": "user", "content": "最高なキャッチコピーを考えてください。"},
                 ],
                 "user": "山田太郎",
