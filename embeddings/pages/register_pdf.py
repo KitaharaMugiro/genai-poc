@@ -3,9 +3,10 @@ import requests
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import TokenTextSplitter
 
+
 def text_split_from_page(page):
     text_splitter = TokenTextSplitter(
-        encoding_name='cl100k_base',
+        encoding_name="cl100k_base",
         chunk_size=300,
         chunk_overlap=50,
         add_start_index=True,
@@ -13,16 +14,11 @@ def text_split_from_page(page):
     texts = text_splitter.create_documents([page.page_content])
     return texts
 
+
 def embed_text_with_openai(api_key, text, groupName="default"):
     url = "http://langcore.org/api/embeddings"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "input": text,
-        "groupName": groupName
-    }
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    data = {"input": text, "groupName": groupName}
 
     response = requests.post(url, json=data, headers=headers)
 
@@ -32,7 +28,8 @@ def embed_text_with_openai(api_key, text, groupName="default"):
 
     return response.json()
 
-st.title('Langcore Embeddings Register')
+
+st.title("Langcore PDF登録画面")
 
 # APIキーの入力
 api_key = st.text_input("Enter your OpenAI API Key:", type="password")
@@ -57,13 +54,12 @@ if st.button("Register Embeddings"):
         lines = []
         for page in pages:
             lines += text_split_from_page(page)
-        
+
         # テキスト部分だけ抽出
         lines = [line.page_content for line in lines if line.page_content]
 
         # 30文字以上の行だけ抽出
         lines = [line for line in lines if len(line) > 30]
-
 
         embedded_lines = []
         with st.spinner("Embedding lines..."):
