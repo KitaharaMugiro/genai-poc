@@ -4,7 +4,9 @@ import pandas as pd
 
 ## login ##
 password = st.text_input("Password", type="password")
-if password != st.secrets["PASSWORD"]:
+if password == "":
+    pass
+elif password != st.secrets["PASSWORD"]:
     st.error("the password you entered is incorrect")
     st.stop()
 else:
