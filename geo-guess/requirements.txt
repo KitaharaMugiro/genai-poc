@@ -1,1 +1,1 @@
-maxminddb-geolite2
+geoip2
