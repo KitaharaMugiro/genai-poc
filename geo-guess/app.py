@@ -11,17 +11,26 @@ def get_location(ip_address, db_path):
         return city
 
 
-def get_ip():
-    headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get("https://httpbin.org/ip", headers=headers)
-    return response.json()["origin"]
+# クライアントのIPアドレスを取得
+client_ip = st.text_input("Enter your IP address:", "")
 
-
-st.title("IPアドレスに基づく位置情報推定アプリ")
-
-ip_address = get_ip()
-st.write(f"Your IP address is: {ip_address}")
-
-db_path = "./geo-guess/GeoLite2-City.mmdb"  # こちらを実際のデータベースファイルのパスに変更してください
-location = get_location(ip_address, db_path)
-st.write(f"Estimated location based on IP: {location}")
+if client_ip:
+    db_path = "path_to_your_downloaded_mmdb_file"
+    location = get_location(client_ip, db_path)
+    st.write(f"Estimated location based on IP: {location}")
+else:
+    # クライアントのIPアドレスを取得するJavaScriptを実行
+    st.markdown(
+        """
+        <script>
+            async function setIP() {
+                const ip = await fetchIP();
+                const input = document.querySelector('input[type="text"]');
+                input.value = ip;
+                input.dispatchEvent(new Event('change', { 'bubbles': true }));
+            }
+            setIP();
+        </script>
+    """,
+        unsafe_allow_html=True,
+    )
