@@ -22,6 +22,6 @@ st.title("IPアドレスに基づく位置情報推定アプリ")
 ip_address = get_ip()
 st.write(f"Your IP address is: {ip_address}")
 
-db_path = "./GeoLite2-City.mmdb"  # こちらを実際のデータベースファイルのパスに変更してください
+db_path = "./geo-guess/GeoLite2-City.mmdb"  # こちらを実際のデータベースファイルのパスに変更してください
 location = get_location(ip_address, db_path)
 st.write(f"Estimated location based on IP: {location}")
