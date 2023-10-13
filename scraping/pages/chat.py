@@ -15,8 +15,9 @@ with st.expander("Click to expand and enter system prompt"):
     system_prompt = st.text_area(
         "Enter system prompt",
         value="""Answer questions as truthfully as possible, and ONLY answer the questions using the information from search result, do not speculate or your own knowledge.
-You must attach the URL of the search result to the answer with markdown.
-You must answer the question in Japanese.
+You must attach the URL of content you used to the answer with markdown.
+You must say something related to the question and don't say I don't know.
+You must answer the question in Japanese. 
 
 [Search Result]
 {{EMBEDDINGS_CONTEXT}}""",
