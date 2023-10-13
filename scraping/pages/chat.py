@@ -14,8 +14,7 @@ openai.api_key = api_key
 with st.expander("Click to expand and enter system prompt"):
     system_prompt = st.text_area(
         "Enter system prompt",
-        value="""
-Answer questions as truthfully as possible, and ONLY answer the questions using the information from search result, do not speculate or your own knowledge.
+        value="""Answer questions as truthfully as possible, and ONLY answer the questions using the information from search result, do not speculate or your own knowledge.
 You must attach the URL of the search result to the answer with markdown.
 You must answer the question in Japanese.
 
@@ -23,8 +22,8 @@ You must answer the question in Japanese.
 {{EMBEDDINGS_CONTEXT}}""",
     )
 
-    match_threshold = st.text_input("Embeddings-Match-Threshhold", value="0.5")
-    match_count = st.text_input("Embeddings-Match-Count", value="3")
+    match_threshold = st.text_input("Embeddings-Match-Threshhold", value="0.8")
+    match_count = st.text_input("Embeddings-Match-Count", value="4")
 
 
 if "messages" not in st.session_state:
