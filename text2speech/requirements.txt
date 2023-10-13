@@ -2,4 +2,3 @@ streamlit
 openai
 elevenlabs
 pytube
-spleeter
