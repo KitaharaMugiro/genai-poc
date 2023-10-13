@@ -1,11 +1,12 @@
 import requests
 from xml.etree import ElementTree
 import streamlit as st
+from trafilatura import fetch_url, extract
+from trafilatura.settings import use_config
 
 
 def main():
     st.title("パレオスクレイピング")
-
     st.write("まずブログポストのURLの一覧を取得します")
 
     if st.button("一覧取得"):
@@ -16,6 +17,24 @@ def main():
         st.download_button(
             "ダウンロードする", urls_to_string(urls), file_name="sitemap_urls.txt"
         )
+
+        if urls:
+            st.write("最初の10件のテキストを取得して表示します。")
+            contents = []
+            for url in urls[:10]:
+                content = fetch_contents(url)
+                contents.append({"url": url, "content": content})
+
+            st.json(contents)
+
+
+def fetch_contents(url: str) -> str:
+    config = use_config()
+    config.set("DEFAULT", "EXTRACTION_TIMEOUT", "0")
+    config.set("DEFAULT", "MIN_EXTRACTED_SIZE", "100")
+    downloaded = fetch_url(url)
+    result = extract(downloaded, config=config)
+    return result
 
 
 def urls_to_string(urls: list) -> str:
