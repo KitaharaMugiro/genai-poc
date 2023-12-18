@@ -52,7 +52,7 @@ def function_calling(messages, functions, function_name):
     if function_name: 
         function_call = {"name": function_name}
     response = openai.ChatCompletion.create(
-            model=is_gpt4 and "gpt4" or "gpt-3.5-turbo",
+            model=is_gpt4 and "gpt-4" or "gpt-3.5-turbo",
             messages=messages,
             functions=functions,
             function_call=function_call
