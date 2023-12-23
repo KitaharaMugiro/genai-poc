@@ -3,7 +3,7 @@ import requests
 
 
 def embed_text_with_azure(api_key, text, azure_resource_name,azure_deployment_name, groupName="default"):
-    url = "http://langcore.org/api/embeddings"
+    url = "http://langcore.org/api/embeddings/azure"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     data = {"input": text, "groupName": groupName, 
             "azure_resource_name": azure_resource_name,
