@@ -1,0 +1,8 @@
+beautifulsoup4==4.12.2
+bs4==0.0.1
+openai==1.6.1
+pandas==2.1.4
+requests==2.31.0
+streamlit==1.29.0
+supabase==2.3.0
+trafilatura==1.6.3
