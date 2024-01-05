@@ -42,6 +42,7 @@ def get_parameters(homepage_url, tags, price_types):
     config.set("DEFAULT", "MIN_EXTRACTED_SIZE", "1000")
     downloaded = fetch_url(homepage_url)
     result = extract(downloaded, config=config)
+    # TODO: ここで取得しているテキストがイマイチな可能性が高い
     # テキストが長すぎる場合は、一部を削除します。
     content = result
     if content is None or len(content) == 0:
@@ -158,6 +159,8 @@ def app():
         res = supabase.table("tools").insert([{
             "name": parameters.get("name"),
             "description": parameters.get("description"),
+            "description_ai": parameters.get("description"),
+            "description_old": parameters.get("description"),
             "image_url": ogp_image_url,
             "homepage_url": url,
             "price_type_id": price_type_id,
