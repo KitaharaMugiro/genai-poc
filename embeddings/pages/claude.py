@@ -2,11 +2,11 @@ import streamlit as st
 import requests
 
 
-def embed_text_with_azure(api_key, anthropic_api_key,  text, groupName="default"):
+def embed_text(api_key, anthropic_api_key,  text, groupName="default"):
     url = "http://langcore.org/api/embeddings"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     data = {"input": text, "groupName": groupName, "registerAPIKey": anthropic_api_key}
-
+    print(data)
     response = requests.post(url, json=data, headers=headers)
 
     if response.status_code != 200:
@@ -45,7 +45,7 @@ if st.button("Register Embeddings"):
             progress_bar = st.progress(0)
             for index, line in enumerate(lines, 1):
                 # Embeddingの処理
-                embed_text_with_azure(api_key, line,  group_name)
+                embed_text(api_key, anthropic_api_key , line,  group_name)
                 # 進行度の表示
                 progress_bar.progress(index / len(lines))
 
