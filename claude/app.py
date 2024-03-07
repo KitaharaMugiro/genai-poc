@@ -19,11 +19,11 @@ if selected_option == "Home":
             model="claude-3-sonnet-20240229",
             temperature=0,
             max_tokens=1000,
-            system="",
+            system="{{EMBEDDINGS_CONTEXT}}",
             messages=[
                 {
                     "role": "user",
-                    "content": "{{EMBEDDINGS_CONTEXT}} 好きな食べ物は？"
+                    "content": "好きな食べ物は？"
                 }
             ],
             extra_body={
