@@ -81,7 +81,7 @@ def get_parameters(homepage_url, tags, price_types):
     prompt = prompt.replace("$PRICE_TYPES_LIST", price_types_str)
 
     request_body = {
-        "model": "gpt-4-1106-preview",
+        "model": "gpt-4o",
         "messages": [
             {"role": "system", "content": prompt},
         ],
